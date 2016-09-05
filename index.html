@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <title></title>
+    <link rel="stylesheet" href="css/wx.css">
+    <style>
+        /*微信H5页面--*/
+        html{
+            font-size: 16px;
+        }
+        /*微信H5页面--*/
+        html,body{
+            /*tap-highlight-color: rgba(225,225,225,0.1);*/
+            /*-webkit-tap-highlight-color: rgba(225,225,225,0.1);*/
+            /*-ms-tap-highlight-color: rgba(225,225,225,0.1);*/
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-font-smoothing: antialiased;
+            background-color: #f6f6f6;
+            -webkit-user-select: none;
+            font-family: arial, "Microsoft Yahei", 微软雅黑;
+        }
+        header,footer{
+            background: red;
+            padding: 0;
+            display: block;
+            height:2.5rem;
+            position: fixed;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }
+        footer{
+            bottom: 0;
+        }
+        header h1, footer h1{
+            margin: 0;
+            font-size: 1em;
+            color: white;
+            line-height:2.5rem;
+            text-align: center;
+            display: block;
+        }
+        header h1.title-yahei {
+            font-size: 1rem;
+
+        }
+        .container{
+            position:absolute; overflow-y:scroll; overflow-x: hidden; -webkit-overflow-scrolling: touch; top:2.5rem; left:0; bottom:2.5rem; right:0
+        ;}
+        /*@-webkit-keyframes a {*/
+        /*0% {*/
+        /*-webkit-transform: translate3d(100%,0,0);*/
+        /*transform: translate3d(100%,0,0);*/
+        /*// opacity: 0*/
+        /*}*/
+
+        /*to {*/
+        /*-webkit-transform: translateZ(0);*/
+        /*transform: translateZ(0);*/
+        /*// opacity: 1*/
+        /*}*/
+        /*}*/
+
+        /*@keyframes a {*/
+        /*0% {*/
+        /*-webkit-transform: translate3d(100%,0,0);*/
+        /*transform: translate3d(100%,0,0);*/
+        /*//opacity: 0*/
+        /*}*/
+
+        /*to {*/
+        /*-webkit-transform: translateZ(0);*/
+        /*transform: translateZ(0);*/
+        /*// opacity: 1*/
+        /*}*/
+        /*}*/
+
+        /*@-webkit-keyframes b {*/
+        /*0% {*/
+        /*-webkit-transform: translateZ(0);*/
+        /*transform: translateZ(0);*/
+        /*//  opacity: 1*/
+        /*}*/
+
+        /*to {*/
+        /*-webkit-transform: translate3d(100%,0,0);*/
+        /*transform: translate3d(100%,0,0);*/
+        /*// opacity: 0*/
+        /*}*/
+        /*}*/
+
+        /*@keyframes b {*/
+        /*0% {*/
+        /*-webkit-transform: translateZ(0);*/
+        /*transform: translateZ(0);*/
+        /*//opacity: 1*/
+        /*}*/
+
+        /*to {*/
+        /*-webkit-transform: translate3d(100%,0,0);*/
+        /*transform: translate3d(100%,0,0);*/
+        /*//opacity: 0*/
+        /*}*/
+        /*}*/
+
+        /*.enter,.leave {*/
+        /*position: absolute;*/
+        /*top: 0;*/
+        /*right: 0;*/
+        /*bottom: 0;*/
+        /*left: 0;*/
+        /*z-index: 1;*/
+        /*}*/
+
+        /*.enter {*/
+        /*-webkit-animation: a .2s forwards;*/
+        /*animation: a .2s forwards*/
+        /*}*/
+
+        /*.leave {*/
+        /*-webkit-animation: b .25s forwards;*/
+        /*animation: b .25s forwards*/
+        /*}*/
+        .list{
+            background-color: white;
+            height: auto;
+            width: 100%;
+        }
+        a.weui_panel{
+            display: block;
+            color: #f40;
+        }
+        a.weui_panel:active{
+            background-color:rgba(225, 225, 225, .1) ;
+        }
+        .weui_media_box.weui_media_text .weui_media_info_meta {
+            float: right;
+            padding-right: 0.3rem;
+        }
+        .weui_panel_hd_dialog{
+            background: rgba(0,0,0,.5);
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display:-webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+            -webkit-transform: translate(-100%);
+
+        }
+        .weui_panel_hd_dialog .weui_panel{
+            border-radius: 4px;
+            width: 80%;
+        }
+        .weui_panel_hd_dialog .item{
+            border-radius: 4px;
+            width: 80%;
+            height: 15rem;
+            text-align: center;
+            background-color: white;
+            -webkit-background-size: 100% 8rem;
+            -moz-background-size: 100% 8rem;
+            -o-background-size: 100% 8rem;
+            background-size: 100% 8rem;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+        }
+        .page_title{
+            text-align: center;
+        }
+        .weui_panel_ft_bottom{
+            text-align: center;
+            height: 2.25rem;
+            line-height: 2.25rem;
+            font-size: 0.6rem;
+            color: #8b8b8d;
+            display: block;
+            position: relative;
+        }
+        .weui_panel_ft_bottom:after{
+            content: " ";
+            position: absolute;
+            right: 0;
+            top: 1.05rem;
+            width: 30%;
+            height: 0.05rem;
+            border-top: 1px solid #e5e5e5;
+            color: #e5e5e5;
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+            right: 0.75rem;
+
+        }
+        .weui_panel_ft_bottom:before{
+            content: " ";
+            position: absolute;
+            right: 0;
+            top: 1.05rem;
+            width: 30%;
+            height: 0.05rem;
+            border-top: 1px solid #e5e5e5;
+            color: #e5e5e5;
+            -webkit-transform-origin: 0 100%;
+            transform-origin: 0 100%;
+            -webkit-transform: scaleY(.5);
+            transform: scaleY(.5);
+            left: 0.75rem;
+        }
+
+        footer{}
+        footer nav{display:-webkit-box;}
+        footer a{ text-decoration:none; display:block; color:#fff; -webkit-box-flex:1;text-align: center;padding-top: 0.2rem;}
+        footer a i{
+            display: block;
+        }
+        footer a span{
+            font-size: 0.6rem;
+            display: block;
+        }
+        @font-face {font-family: "iconfont";
+            src: url('font/iconfont.eot?t=1472636482'); /* IE9*/
+            src: url('font/iconfont.eot?t=1472636482#iefix') format('embedded-opentype'), /* IE6-IE8 */
+            url('font/iconfont.woff?t=1472636482') format('woff'), /* chrome, firefox */
+            url('font/iconfont.ttf?t=1472636482') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+            url('font/iconfont.svg?t=1472636482#iconfont') format('svg'); /* iOS 4.1- */
+        }
+
+        .iconfont {
+            font-family:"iconfont" !important;
+            font-size:0.8rem;
+            font-style:normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon-delete:before { content: "\e836"; }
+        .icon-down:before { content: "\e78a"; }
+        .icon-close:before { content: "\e779"; }
+        .icon-back:before { content: "\e833"; }
+        .icon-add:before { content: "\e775"; }
+        .icon-enter:before { content: "\e78b"; }
+        .icon-message:before { content: "\e79c"; }
+        .icon-more:before { content: "\e7ce"; }
+        .icon-loaction:before { content: "\e7c0"; }
+        .icon-myshape:before { content: "\e793"; }
+        .icon-homeshape:before { content: "\e784"; }
+        .icon-homeline:before { content: "\e783"; }
+        .icon-help:before { content: "\e782"; }
+        .icon-search:before { content: "\e797"; }
+        .icon-passenger:before { content: "\e79f"; }
+        .icon-scan:before { content: "\e7cc"; }
+    </style>
+</head>
+<body>
+<header>
+    <h1 class="title-yahei">小狗钱钱</h1>
+</header>
+<div id="container" class="container scroll" >
+</div>
+<footer>
+    <nav>
+        <a href="javascript:;">
+            <i class="iconfont icon-homeline"></i>
+            <span>首页</span>
+            </a>
+        <a href="javascript:;" >
+            <i class="iconfont icon-passenger"></i>
+            <span>投资</span>
+        </a>
+        <a href="javascript:;" >
+            <i class="iconfont icon-message"></i>
+            <span>账户</span>
+            </a>
+        <a href="javascript:;" >
+            <i class="iconfont icon-more"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+</footer>
+<script>
+    // 动态插入script标签
+    function createScript(url){
+        var oScript = document.createElement('script');
+//        oScript.type = 'text/javascript';
+        oScript.async = true;
+        oScript.src = url;
+        document.body.appendChild(oScript);
+    };
+    createScript('bundle.js?version='+Math.random()+new Date().getTime())
+    var overscroll = function(el) {
+        el.addEventListener('touchstart', function() {
+            var top = el.scrollTop
+                    , totalScroll = el.scrollHeight
+                    , currentScroll = top + el.offsetHeight;
+            if(top === 0) {
+                el.scrollTop = 1;
+            } else if(currentScroll === totalScroll) {
+                el.scrollTop = top - 1;
+            }
+        });
+        el.addEventListener('touchmove', function(evt) {
+            if(el.offsetHeight < el.scrollHeight)
+                evt._isScroller = true;
+        });
+    }
+    overscroll(document.querySelector('.scroll'));
+    document.body.addEventListener('touchmove', function(evt) {
+        if(!evt._isScroller) {
+            evt.preventDefault();
+        }
+    });
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    docEl.style.fontSize = 20 + 'px';
+                };
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false);
+        doc.addEventListener('DOMContentLoaded', recalc, false);
+    })(document, window);
+
+</script>
+</body>
+</html>
