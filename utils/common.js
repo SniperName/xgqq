@@ -8,14 +8,14 @@ export default {
     },//根据ID选择元素
     createElement:function (parent,json){
         json=json||{};
-        json.count=json.count||10;//默认每次创建十条
+        json.count=json.count||1;//默认每次创建十条
         json.ele=json.ele||'a';//默认创建的是A标签
         for(let i=0;i<json.count;i++){
-            let aObj=document.createElement(json.ele);
-            aObj[json.attr]=json.attrName;
-            aObj[json.domClass]=json.className;
-            aObj[json.inner]=json.template;
-            parent.appendChild(aObj);
+                let aObj=document.createElement(json.ele);
+                aObj[json.attr]=json.attrName;
+                aObj[json.domClass]=json.className;
+                aObj[json.inner]=json.template;
+                parent.appendChild(aObj);
         }
     },//创建元素
     removeElement:function(_element){

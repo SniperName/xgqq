@@ -4,20 +4,21 @@
 import  Hammer from '../../utils/hammer';
 import common from '../../utils/common';
 import templateHome from 'raw!./home.html';
+import templateDialog from 'raw!../dialog/confirm.html';
+import templateAlert from 'raw!../dialog/alert.html';
 import templateMore from 'raw!./more.html';
 export default {
     url: '/home',
     className: 'home',
     render: function (){
-        // var html=document.getElementById('tpl_home').innerHTML;
-        var html=templateHome;
         return new Promise(function (resolve, reject){
-            resolve(html);
+            resolve(templateHome+templateAlert);
         });
     },
     bind: function (){
         let aList=common.getElement('listContainer'),oPanelListItem=common.getElement('panel_list_item'),
-            dialog=common.getElement('dialog'), tapDialog = new Hammer(dialog),aLiItem=oPanelListItem.children;
+            dialog=common.getElement('dialog-alert'), tapDialog = new Hammer(dialog),aLiItem=oPanelListItem.children;
+
        // oMore=common.getElement('more')
        //  oMore.addEventListener('click',function () {
        //     common.createElement(aList,{
@@ -53,31 +54,17 @@ export default {
             }
             if(target.nodeName.toLowerCase()=='i'){
                 ev.cancelBubble=true; //取消冒泡
-
                 common.move3(dialog,{webkitTransform:'translate(0)'},{duration:300,complete:function(){
                     //   move3(this,{height:'300px'})
-
+                   // window.location.href='http://m.xgqq.com/index.html#find/view~id=125&showHeader=0';
                 }});
                /// common.removeElement(target.parentNode.parentNode)//
                 ev.preventDefault();
             }
-
         },false)
         tapDialog.on("tap", function(ev) {
             common.move3(dialog,{webkitTransform:'translate(-100%)'},{duration:300});
             ev.preventDefault();
         });
-        if(dialog.style.display=='-webkit-box'){
-            ev.preventDefault();
-        }
-        // this.addEventListener('click',function () {
-        //
-        //
-        // },false)
-
-
-
-
-
     }
 }

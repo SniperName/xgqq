@@ -13,7 +13,7 @@ export default {
         });
     },
     bind: function (){
-        common.preloader('img');//图片预加载
+       // common.preloader('img');//图片预加载
 
 
 

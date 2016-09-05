@@ -54,7 +54,7 @@
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _list = __webpack_require__(8);
+	var _list = __webpack_require__(10);
 	
 	var _list2 = _interopRequireDefault(_list);
 	
@@ -303,7 +303,15 @@
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _more = __webpack_require__(7);
+	var _confirm = __webpack_require__(7);
+	
+	var _confirm2 = _interopRequireDefault(_confirm);
+	
+	var _alert = __webpack_require__(8);
+	
+	var _alert2 = _interopRequireDefault(_alert);
+	
+	var _more = __webpack_require__(9);
 	
 	var _more2 = _interopRequireDefault(_more);
 	
@@ -316,18 +324,17 @@
 	    url: '/home',
 	    className: 'home',
 	    render: function render() {
-	        // var html=document.getElementById('tpl_home').innerHTML;
-	        var html = _home2.default;
 	        return new Promise(function (resolve, reject) {
-	            resolve(html);
+	            resolve(_home2.default + _alert2.default);
 	        });
 	    },
 	    bind: function bind() {
 	        var aList = _common2.default.getElement('listContainer'),
 	            oPanelListItem = _common2.default.getElement('panel_list_item'),
-	            dialog = _common2.default.getElement('dialog'),
+	            dialog = _common2.default.getElement('dialog-alert'),
 	            tapDialog = new _hammer2.default(dialog),
 	            aLiItem = oPanelListItem.children;
+	
 	        // oMore=common.getElement('more')
 	        //  oMore.addEventListener('click',function () {
 	        //     common.createElement(aList,{
@@ -363,10 +370,9 @@
 	            }
 	            if (target.nodeName.toLowerCase() == 'i') {
 	                ev.cancelBubble = true; //取消冒泡
-	
 	                _common2.default.move3(dialog, { webkitTransform: 'translate(0)' }, { duration: 300, complete: function complete() {
 	                        //   move3(this,{height:'300px'})
-	
+	                        // window.location.href='http://m.xgqq.com/index.html#find/view~id=125&showHeader=0';
 	                    } });
 	                /// common.removeElement(target.parentNode.parentNode)//
 	                ev.preventDefault();
@@ -376,14 +382,6 @@
 	            _common2.default.move3(dialog, { webkitTransform: 'translate(-100%)' }, { duration: 300 });
 	            ev.preventDefault();
 	        });
-	        if (dialog.style.display == '-webkit-box') {
-	            ev.preventDefault();
-	        }
-	        // this.addEventListener('click',function () {
-	        //
-	        //
-	        // },false)
-	
 	    }
 	};
 
@@ -3044,7 +3042,7 @@
 	    }, //根据ID选择元素
 	    createElement: function createElement(parent, json) {
 	        json = json || {};
-	        json.count = json.count || 10; //默认每次创建十条
+	        json.count = json.count || 1; //默认每次创建十条
 	        json.ele = json.ele || 'a'; //默认创建的是A标签
 	        for (var i = 0; i < json.count; i++) {
 	            var aObj = document.createElement(json.ele);
@@ -3140,16 +3138,28 @@
 /* 6 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"panel_list_item\">\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源<i style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i></div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">钱钱商票869号五期</h4>\r\n                <p class=\"weui_media_desc\">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：2016-08-31</li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源\r\n            <i style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i>\r\n        </div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">钱钱商票873号十期</h4>\r\n                <p class=\"weui_media_desc\">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：2016-08-31</li>\r\n                 </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n</div>\r\n<span class=\"weui_panel_ft_bottom\">我是有底线的</span>\r\n<!--<div class=\"weui_panel weui_panel_access\">-->\r\n    <!--<div class=\"weui_panel_hd\">全部产品</div>-->\r\n    <!--<div id=\"listContainer\" class=\"weui_panel_bd\">-->\r\n\r\n    <!--</div>-->\r\n    <!--<a class=\"weui_panel_ft\" id=\"more\" href=\"javascript:void(0);\">查看更多</a>-->\r\n<!--</div>-->\r\n<div id=\"dialog\" class=\"weui_panel_hd_dialog\">\r\n    <div class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">小图文组合列表</div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_small_appmsg\">\r\n                <div class=\"weui_cells weui_cells_access\">\r\n                    <a class=\"weui_cell\" href=\"javascript:;\">\r\n                        <div class=\"weui_cell_hd\"><i class=\"iconfont icon-delete\"></i></div>\r\n                        <div class=\"weui_cell_bd weui_cell_primary\">\r\n                            <p>&nbsp;删除</p>\r\n                        </div>\r\n                        <span class=\"weui_cell_ft\"></span>\r\n                    </a>\r\n                    <a class=\"weui_cell\" href=\"javascript:;\">\r\n                        <div class=\"weui_cell_hd\"><i class=\"iconfont icon-loaction\"></i></div>\r\n                        <div class=\"weui_cell_bd weui_cell_primary\">\r\n                            <p>&nbsp;地理位置</p>\r\n                        </div>\r\n                        <span class=\"weui_cell_ft\"></span>\r\n                    </a>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <!--<div class=\"item\">-->\r\n        <!--<a href=\"###\"><i class=\"iconfont icon-loaction\"></i> 分享到</a>-->\r\n        <!--<a href=\"###\"><i class=\"iconfont icon-message\"></i>收藏</a>-->\r\n        <!--<a href=\"###\"><i  class=\"iconfont icon-delete\"></i>删除</a>-->\r\n        <!--<a href=\"###\"><i class=\"iconfont icon-help\"></i>举报</a>-->\r\n    <!--</div>-->\r\n</div>\r\n"
+	module.exports = "<!--首页-->\r\n<div id=\"panel_list_item\">\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源<i style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i></div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">钱钱商票869号五期</h4>\r\n                <p class=\"weui_media_desc\">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：2016-08-31</li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源\r\n            <i style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i>\r\n        </div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">钱钱商票873号十期</h4>\r\n                <p class=\"weui_media_desc\">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：2016-08-31</li>\r\n                 </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n</div>\r\n<span class=\"weui_panel_ft_bottom\">我是有底线的</span>\r\n"
 
 /***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"weui_media_hd\"><img class=\"weui_media_appmsg_thumb\" src=\"data:image/png;base64,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aWNrIDYuOC44LTEwIFExNiB4ODZfNjQgMjAxNS0wNy0xOSBodHRwOi8vd3d3LmltYWdlbWFnaWNrLm9yZwUMnDUAAABjdEVYdHN2Zzpjb21tZW50ACBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjEuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgILu01mcAAAAYdEVYdFRodW1iOjpEb2N1bWVudDo6UGFnZXMAMaf/uy8AAAAYdEVYdFRodW1iOjpJbWFnZTo6SGVpZ2h0ADQ2OVbcdvkAAAAXdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDgwInKzjgAAABl0RVh0VGh1bWI6Ok1pbWV0eXBlAGltYWdlL3BuZz+yVk4AAAAXdEVYdFRodW1iOjpNVGltZQAxNDQ4Mjg3NzIwTEqxDAAAABN0RVh0VGh1bWI6OlNpemUAMTAuNktCQrcGlWUAAABadEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL3d3d3Jvb3Qvd3d3LmVhc3lpY29uLm5ldC9jZG4taW1nLmVhc3lpY29uLmNuL3NyYy8xMTk2NS8xMTk2NTM3LnBuZ97UqSwAAAAASUVORK5CYII=\" alt=\"\"></div><div class=\"weui_media_bd\"><h5 class=\"weui_media_title\">12321</h5><p class=\"weui_media_desc\">123123</p></div>"
+	module.exports = "<!--弹出层confirm-->\r\n<div class=\"weui_panel_hd_dialog\" id=\"confirm\">\r\n    <div class=\"weui_dialog\">\r\n        <div class=\"weui_dialog_hd\"><strong class=\"weui_dialog_title\">弹窗标题</strong></div>\r\n        <div class=\"weui_dialog_bd\">自定义弹窗内容，居左对齐显示，告知需要确认的信息等</div>\r\n        <div class=\"weui_dialog_ft\">\r\n            <a href=\"javascript:;\" class=\"weui_btn_dialog default\">取消</a>\r\n            <a href=\"javascript:;\" class=\"weui_btn_dialog primary\">确定</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 8 */
+/***/ function(module, exports) {
+
+	module.exports = "<!--弹出层alert-->\r\n<div class=\"weui_panel_hd_dialog\" id=\"dialog-alert\">\r\n    <div class=\"weui_dialog\">\r\n        <div class=\"weui_dialog_hd\"><strong class=\"weui_dialog_title\">弹窗标题</strong></div>\r\n        <div class=\"weui_dialog_bd\">弹窗内容，告知当前页面信息等</div>\r\n        <div class=\"weui_dialog_ft\">\r\n            <a href=\"javascript:;\" class=\"weui_btn_dialog primary\">确定</a>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"weui_media_hd\"><img class=\"weui_media_appmsg_thumb\" src=\"data:image/png;base64,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aWNrIDYuOC44LTEwIFExNiB4ODZfNjQgMjAxNS0wNy0xOSBodHRwOi8vd3d3LmltYWdlbWFnaWNrLm9yZwUMnDUAAABjdEVYdHN2Zzpjb21tZW50ACBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjEuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgILu01mcAAAAYdEVYdFRodW1iOjpEb2N1bWVudDo6UGFnZXMAMaf/uy8AAAAYdEVYdFRodW1iOjpJbWFnZTo6SGVpZ2h0ADQ2OVbcdvkAAAAXdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDgwInKzjgAAABl0RVh0VGh1bWI6Ok1pbWV0eXBlAGltYWdlL3BuZz+yVk4AAAAXdEVYdFRodW1iOjpNVGltZQAxNDQ4Mjg3NzIwTEqxDAAAABN0RVh0VGh1bWI6OlNpemUAMTAuNktCQrcGlWUAAABadEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL3d3d3Jvb3Qvd3d3LmVhc3lpY29uLm5ldC9jZG4taW1nLmVhc3lpY29uLmNuL3NyYy8xMTk2NS8xMTk2NTM3LnBuZ97UqSwAAAAASUVORK5CYII=\" alt=\"\"></div><div class=\"weui_media_bd\"><h5 class=\"weui_media_title\">12321</h5><p class=\"weui_media_desc\">123123</p></div>"
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3162,7 +3172,7 @@
 	
 	var _common2 = _interopRequireDefault(_common);
 	
-	var _list = __webpack_require__(9);
+	var _list = __webpack_require__(11);
 	
 	var _list2 = _interopRequireDefault(_list);
 	
@@ -3181,16 +3191,17 @@
 	        });
 	    },
 	    bind: function bind() {
-	        _common2.default.preloader('img'); //图片预加载
+	        // common.preloader('img');//图片预加载
+	
 	
 	    }
 	};
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
-	module.exports = "\r\n    <div class=\"hd\">\r\n        <h1 class=\"page_title\">Article</h1>\r\n    </div>\r\n    <div class=\"bd\">\r\n        <article class=\"weui_article\">\r\n            <h1>大标题</h1>\r\n            <section>\r\n                <h2 class=\"title\">章标题</h2>\r\n                <section>\r\n                    <h3>1.1 节标题</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\n                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\n                        consequat. Duis aute</p>\r\n                    <p>\r\n                        <img src=\"./images/pic_article.png\" alt=\"\" _src=\"./images/1.jpg\">\r\n                        <img src=\"./images/pic_article.png\" alt=\"\" _src=\"./images/2.jpg\">\r\n                    </p>\r\n                </section>\r\n                <section>\r\n                    <h3>1.2 节标题</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\n                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\n                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n                </section>\r\n            </section>\r\n        </article>\r\n    </div>\r\n"
+	module.exports = "\r\n    <div class=\"hd\">\r\n        <h1 class=\"page_title\">Article</h1>\r\n    </div>\r\n    <div class=\"bd\">\r\n        <article class=\"weui_article\">\r\n            <h1>大标题</h1>\r\n            <section>\r\n                <h2 class=\"title\">章标题</h2>\r\n                <section>\r\n                    <h3>1.1 节标题</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\n                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo\r\n                        consequat. Duis aute</p>\r\n                    <p>\r\n                        <img src=\"./images/1.jpg\" alt=\"img1\" >\r\n                        <img src=\"./images/2.jpg\" alt=\"img2\" >\r\n                    </p>\r\n                </section>\r\n                <section>\r\n                    <h3>1.2 节标题</h3>\r\n                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod\r\n                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,\r\n                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non\r\n                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>\r\n                </section>\r\n            </section>\r\n        </article>\r\n    </div>\r\n"
 
 /***/ }
 /******/ ]);
