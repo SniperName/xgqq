@@ -1,30 +1,21 @@
 <!--首页-->
+<div style="transform: translateY(0);">
 <div id="panel_list_item">
+    {{each list as item i}}
     <a href="#/list" class="weui_panel">
-        <div class="weui_panel_hd">文字列表附来源<i style="position: absolute;right: 10px;top: 0;padding: 10px" class="iconfont icon-down"></i></div>
+        <div class="weui_panel_hd">文字列表附来源<i id="{{item.id}}" style="position: absolute;right: 10px;top: 0;padding: 10px" class="iconfont icon-down"></i></div>
         <div class="weui_panel_bd">
             <div class="weui_media_box weui_media_text">
-                <h4 class="weui_media_title">钱钱商票869号五期</h4>
-                <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+                <h4 class="weui_media_title">{{item.title}}</h4>
+                <p class="weui_media_desc">{{item.summary}}</p>
                 <ul class="weui_media_info">
-                    <li class="weui_media_info_meta"  style="line-height: 30px">发布日期：2016-08-31</li>
+                    <li class="weui_media_info_meta"  style="line-height: 30px">发布日期：{{item.date}}</li>
                 </ul>
             </div>
         </div>
     </a>
-    <a href="#/list" class="weui_panel">
-        <div class="weui_panel_hd">文字列表附来源
-            <i style="position: absolute;right: 10px;top: 0;padding: 10px" class="iconfont icon-down"></i>
-        </div>
-        <div class="weui_panel_bd">
-            <div class="weui_media_box weui_media_text">
-                <h4 class="weui_media_title">钱钱商票873号十期</h4>
-                <p class="weui_media_desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
-                <ul class="weui_media_info">
-                    <li class="weui_media_info_meta"  style="line-height: 30px">发布日期：2016-08-31</li>
-                 </ul>
-            </div>
-        </div>
-    </a>
+    {{/each}}
+
 </div>
 <span class="weui_panel_ft_bottom">我是有底线的</span>
+</div>

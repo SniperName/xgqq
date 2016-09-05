@@ -224,6 +224,10 @@
             font-size: 0.6rem;
             display: block;
         }
+        footer a.active{
+            color: orange;
+
+        }
         @font-face {font-family: "iconfont";
             src: url('font/iconfont.eot?t=1472636482'); /* IE9*/
             src: url('font/iconfont.eot?t=1472636482#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -259,17 +263,17 @@
     </style>
 </head>
 <body>
-<header>
+<header id="header">
     <h1 class="title-yahei">小狗钱钱</h1>
 </header>
 <div id="container" class="container scroll" >
 </div>
-<footer>
+<footer id="footer">
     <nav>
-        <a href="javascript:;">
+        <a class="active" href="javascript:;">
             <i class="iconfont icon-homeline"></i>
             <span>首页</span>
-            </a>
+        </a>
         <a href="javascript:;" >
             <i class="iconfont icon-passenger"></i>
             <span>投资</span>
@@ -277,7 +281,7 @@
         <a href="javascript:;" >
             <i class="iconfont icon-message"></i>
             <span>账户</span>
-            </a>
+        </a>
         <a href="javascript:;" >
             <i class="iconfont icon-more"></i>
             <span>我的</span>
@@ -328,7 +332,16 @@
         win.addEventListener(resizeEvt, recalc, false);
         doc.addEventListener('DOMContentLoaded', recalc, false);
     })(document, window);
-
+    var oFoot=document.getElementsByTagName('footer')[0];
+    aA=oFoot.getElementsByTagName('a');
+    for(var i=0;i<aA.length;i++){
+        aA[i].onclick=function () {
+            for(var i=0;i<aA.length;i++){
+                aA[i].classList.remove('active');
+            }
+            this.classList.add('active');
+        }
+    }
 </script>
 </body>
 </html>

@@ -291,32 +291,35 @@
 	    value: true
 	});
 	
-	var _hammer = __webpack_require__(4);
+	var _template = __webpack_require__(4);
+	
+	var _template2 = _interopRequireDefault(_template);
+	
+	var _hammer = __webpack_require__(5);
 	
 	var _hammer2 = _interopRequireDefault(_hammer);
 	
-	var _common = __webpack_require__(5);
+	var _common = __webpack_require__(6);
 	
 	var _common2 = _interopRequireDefault(_common);
 	
-	var _home = __webpack_require__(6);
+	var _home = __webpack_require__(7);
 	
 	var _home2 = _interopRequireDefault(_home);
-	
-	var _confirm = __webpack_require__(7);
-	
-	var _confirm2 = _interopRequireDefault(_confirm);
 	
 	var _alert = __webpack_require__(8);
 	
 	var _alert2 = _interopRequireDefault(_alert);
 	
-	var _more = __webpack_require__(9);
+	var _data = __webpack_require__(9);
 	
-	var _more2 = _interopRequireDefault(_more);
+	var _data2 = _interopRequireDefault(_data);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//数据
+	//
+	//touch手势插件
 	/**
 	 * Created by Admini on 2016/8/24.
 	 */
@@ -324,8 +327,9 @@
 	    url: '/home',
 	    className: 'home',
 	    render: function render() {
+	        var html = _template2.default.compile(_home2.default)({ list: _data2.default });
 	        return new Promise(function (resolve, reject) {
-	            resolve(_home2.default + _alert2.default);
+	            resolve(html + _alert2.default);
 	        });
 	    },
 	    bind: function bind() {
@@ -334,7 +338,6 @@
 	            dialog = _common2.default.getElement('dialog-alert'),
 	            tapDialog = new _hammer2.default(dialog),
 	            aLiItem = oPanelListItem.children;
-	
 	        // oMore=common.getElement('more')
 	        //  oMore.addEventListener('click',function () {
 	        //     common.createElement(aList,{
@@ -370,9 +373,16 @@
 	            }
 	            if (target.nodeName.toLowerCase() == 'i') {
 	                ev.cancelBubble = true; //取消冒泡
+	
 	                _common2.default.move3(dialog, { webkitTransform: 'translate(0)' }, { duration: 300, complete: function complete() {
 	                        //   move3(this,{height:'300px'})
 	                        // window.location.href='http://m.xgqq.com/index.html#find/view~id=125&showHeader=0';
+	                        //target.data-id
+	                        for (var i = 0; i < _data2.default.length; i++) {
+	                            if (target.id == _data2.default[i].id) {
+	                                // data[i].title=data[i].title+'12312321';
+	                            }
+	                        }
 	                    } });
 	                /// common.removeElement(target.parentNode.parentNode)//
 	                ev.preventDefault();
@@ -382,11 +392,167 @@
 	            _common2.default.move3(dialog, { webkitTransform: 'translate(-100%)' }, { duration: 300 });
 	            ev.preventDefault();
 	        });
+	        dialog.addEventListener('touchstart', function (ev) {
+	            ev.preventDefault();
+	        }, false);
 	    }
-	};
+	}; //
+	//共公方法
+	//JS模版引擎
 
 /***/ },
 /* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;"use strict";
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
+	/*!art-template - Template Engine | http://aui.github.com/artTemplate/*/
+	!function () {
+	  function a(a) {
+	    return a.replace(t, "").replace(u, ",").replace(v, "").replace(w, "").replace(x, "").split(y);
+	  }function b(a) {
+	    return "'" + a.replace(/('|\\)/g, "\\$1").replace(/\r/g, "\\r").replace(/\n/g, "\\n") + "'";
+	  }function c(c, d) {
+	    function e(a) {
+	      return m += a.split(/\n/).length - 1, k && (a = a.replace(/\s+/g, " ").replace(/<!--[\w\W]*?-->/g, "")), a && (a = s[1] + b(a) + s[2] + "\n"), a;
+	    }function f(b) {
+	      var c = m;if (j ? b = j(b, d) : g && (b = b.replace(/\n/g, function () {
+	        return m++, "$line=" + m + ";";
+	      })), 0 === b.indexOf("=")) {
+	        var e = l && !/^=[=#]/.test(b);if (b = b.replace(/^=[=#]?|[\s;]*$/g, ""), e) {
+	          var f = b.replace(/\s*\([^\)]+\)/, "");n[f] || /^(include|print)$/.test(f) || (b = "$escape(" + b + ")");
+	        } else b = "$string(" + b + ")";b = s[1] + b + s[2];
+	      }return g && (b = "$line=" + c + ";" + b), r(a(b), function (a) {
+	        if (a && !p[a]) {
+	          var b;b = "print" === a ? u : "include" === a ? v : n[a] ? "$utils." + a : o[a] ? "$helpers." + a : "$data." + a, w += a + "=" + b + ",", p[a] = !0;
+	        }
+	      }), b + "\n";
+	    }var g = d.debug,
+	        h = d.openTag,
+	        i = d.closeTag,
+	        j = d.parser,
+	        k = d.compress,
+	        l = d.escape,
+	        m = 1,
+	        p = { $data: 1, $filename: 1, $utils: 1, $helpers: 1, $out: 1, $line: 1 },
+	        q = "".trim,
+	        s = q ? ["$out='';", "$out+=", ";", "$out"] : ["$out=[];", "$out.push(", ");", "$out.join('')"],
+	        t = q ? "$out+=text;return $out;" : "$out.push(text);",
+	        u = "function(){var text=''.concat.apply('',arguments);" + t + "}",
+	        v = "function(filename,data){data=data||$data;var text=$utils.$include(filename,data,$filename);" + t + "}",
+	        w = "'use strict';var $utils=this,$helpers=$utils.$helpers," + (g ? "$line=0," : ""),
+	        x = s[0],
+	        y = "return new String(" + s[3] + ");";r(c.split(h), function (a) {
+	      a = a.split(i);var b = a[0],
+	          c = a[1];1 === a.length ? x += e(b) : (x += f(b), c && (x += e(c)));
+	    });var z = w + x + y;g && (z = "try{" + z + "}catch(e){throw {filename:$filename,name:'Render Error',message:e.message,line:$line,source:" + b(c) + ".split(/\\n/)[$line-1].replace(/^\\s+/,'')};}");try {
+	      var A = new Function("$data", "$filename", z);return A.prototype = n, A;
+	    } catch (B) {
+	      throw B.temp = "function anonymous($data,$filename) {" + z + "}", B;
+	    }
+	  }var d = function d(a, b) {
+	    return "string" == typeof b ? q(b, { filename: a }) : g(a, b);
+	  };d.version = "3.0.0", d.config = function (a, b) {
+	    e[a] = b;
+	  };var e = d.defaults = { openTag: "<%", closeTag: "%>", escape: !0, cache: !0, compress: !1, parser: null },
+	      f = d.cache = {};d.render = function (a, b) {
+	    return q(a, b);
+	  };var g = d.renderFile = function (a, b) {
+	    var c = d.get(a) || p({ filename: a, name: "Render Error", message: "Template not found" });return b ? c(b) : c;
+	  };d.get = function (a) {
+	    var b;if (f[a]) b = f[a];else if ("object" == (typeof document === "undefined" ? "undefined" : _typeof(document))) {
+	      var c = document.getElementById(a);if (c) {
+	        var d = (c.value || c.innerHTML).replace(/^\s*|\s*$/g, "");b = q(d, { filename: a });
+	      }
+	    }return b;
+	  };var h = function h(a, b) {
+	    return "string" != typeof a && (b = typeof a === "undefined" ? "undefined" : _typeof(a), "number" === b ? a += "" : a = "function" === b ? h(a.call(a)) : ""), a;
+	  },
+	      i = { "<": "&#60;", ">": "&#62;", '"': "&#34;", "'": "&#39;", "&": "&#38;" },
+	      j = function j(a) {
+	    return i[a];
+	  },
+	      k = function k(a) {
+	    return h(a).replace(/&(?![\w#]+;)|[<>"']/g, j);
+	  },
+	      l = Array.isArray || function (a) {
+	    return "[object Array]" === {}.toString.call(a);
+	  },
+	      m = function m(a, b) {
+	    var c, d;if (l(a)) for (c = 0, d = a.length; d > c; c++) {
+	      b.call(a, a[c], c, a);
+	    } else for (c in a) {
+	      b.call(a, a[c], c);
+	    }
+	  },
+	      n = d.utils = { $helpers: {}, $include: g, $string: h, $escape: k, $each: m };d.helper = function (a, b) {
+	    o[a] = b;
+	  };var o = d.helpers = n.$helpers;d.onerror = function (a) {
+	    var b = "Template Error\n\n";for (var c in a) {
+	      b += "<" + c + ">\n" + a[c] + "\n\n";
+	    }"object" == (typeof console === "undefined" ? "undefined" : _typeof(console)) && console.error(b);
+	  };var p = function p(a) {
+	    return d.onerror(a), function () {
+	      return "{Template Error}";
+	    };
+	  },
+	      q = d.compile = function (a, b) {
+	    function d(c) {
+	      try {
+	        return new i(c, h) + "";
+	      } catch (d) {
+	        return b.debug ? p(d)() : (b.debug = !0, q(a, b)(c));
+	      }
+	    }b = b || {};for (var g in e) {
+	      void 0 === b[g] && (b[g] = e[g]);
+	    }var h = b.filename;try {
+	      var i = c(a, b);
+	    } catch (j) {
+	      return j.filename = h || "anonymous", j.name = "Syntax Error", p(j);
+	    }return d.prototype = i.prototype, d.toString = function () {
+	      return i.toString();
+	    }, h && b.cache && (f[h] = d), d;
+	  },
+	      r = n.$each,
+	      s = "break,case,catch,continue,debugger,default,delete,do,else,false,finally,for,function,if,in,instanceof,new,null,return,switch,this,throw,true,try,typeof,var,void,while,with,abstract,boolean,byte,char,class,const,double,enum,export,extends,final,float,goto,implements,import,int,interface,long,native,package,private,protected,public,short,static,super,synchronized,throws,transient,volatile,arguments,let,yield,undefined",
+	      t = /\/\*[\w\W]*?\*\/|\/\/[^\n]*\n|\/\/[^\n]*$|"(?:[^"\\]|\\[\w\W])*"|'(?:[^'\\]|\\[\w\W])*'|\s*\.\s*[$\w\.]+/g,
+	      u = /[^\w$]+/g,
+	      v = new RegExp(["\\b" + s.replace(/,/g, "\\b|\\b") + "\\b"].join("|"), "g"),
+	      w = /^\d[^,]*|,\d[^,]*/g,
+	      x = /^,+|,+$/g,
+	      y = /^$|,+/;e.openTag = "{{", e.closeTag = "}}";var z = function z(a, b) {
+	    var c = b.split(":"),
+	        d = c.shift(),
+	        e = c.join(":") || "";return e && (e = ", " + e), "$helpers." + d + "(" + a + e + ")";
+	  };e.parser = function (a) {
+	    a = a.replace(/^\s/, "");var b = a.split(" "),
+	        c = b.shift(),
+	        e = b.join(" ");switch (c) {case "if":
+	        a = "if(" + e + "){";break;case "else":
+	        b = "if" === b.shift() ? " if(" + b.join(" ") + ")" : "", a = "}else" + b + "{";break;case "/if":
+	        a = "}";break;case "each":
+	        var f = b[0] || "$data",
+	            g = b[1] || "as",
+	            h = b[2] || "$value",
+	            i = b[3] || "$index",
+	            j = h + "," + i;"as" !== g && (f = "[]"), a = "$each(" + f + ",function(" + j + "){";break;case "/each":
+	        a = "});";break;case "echo":
+	        a = "print(" + e + ");";break;case "print":case "include":
+	        a = c + "(" + b.join(",") + ");";break;default:
+	        if (/^\s*\|\s*[\w\$]/.test(e)) {
+	          var k = !0;0 === a.indexOf("#") && (a = a.substr(1), k = !1);for (var l = 0, m = a.split("|"), n = m.length, o = m[l++]; n > l; l++) {
+	            o = z(o, m[l]);
+	          }a = (k ? "=" : "=#") + o;
+	        } else a = d.helpers[c] ? "=#" + c + "(" + b.join(",") + ");" : "=" + a;}return a;
+	  },  true ? !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    return d;
+	  }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "undefined" != typeof exports ? module.exports = d : this.template = d;
+	}();
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;'use strict';
@@ -3024,7 +3190,7 @@
 	})(window, document, 'Hammer');
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -3135,16 +3301,10 @@
 	};
 
 /***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	module.exports = "<!--首页-->\r\n<div id=\"panel_list_item\">\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源<i style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i></div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">钱钱商票869号五期</h4>\r\n                <p class=\"weui_media_desc\">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：2016-08-31</li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源\r\n            <i style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i>\r\n        </div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">钱钱商票873号十期</h4>\r\n                <p class=\"weui_media_desc\">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：2016-08-31</li>\r\n                 </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n</div>\r\n<span class=\"weui_panel_ft_bottom\">我是有底线的</span>\r\n"
-
-/***/ },
 /* 7 */
 /***/ function(module, exports) {
 
-	module.exports = "<!--弹出层confirm-->\r\n<div class=\"weui_panel_hd_dialog\" id=\"confirm\">\r\n    <div class=\"weui_dialog\">\r\n        <div class=\"weui_dialog_hd\"><strong class=\"weui_dialog_title\">弹窗标题</strong></div>\r\n        <div class=\"weui_dialog_bd\">自定义弹窗内容，居左对齐显示，告知需要确认的信息等</div>\r\n        <div class=\"weui_dialog_ft\">\r\n            <a href=\"javascript:;\" class=\"weui_btn_dialog default\">取消</a>\r\n            <a href=\"javascript:;\" class=\"weui_btn_dialog primary\">确定</a>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<!--首页-->\r\n<div style=\"transform: translateY(0);\">\r\n<div id=\"panel_list_item\">\r\n    {{each list as item i}}\r\n    <a href=\"#/list\" class=\"weui_panel\">\r\n        <div class=\"weui_panel_hd\">文字列表附来源<i id=\"{{item.id}}\" style=\"position: absolute;right: 10px;top: 0;padding: 10px\" class=\"iconfont icon-down\"></i></div>\r\n        <div class=\"weui_panel_bd\">\r\n            <div class=\"weui_media_box weui_media_text\">\r\n                <h4 class=\"weui_media_title\">{{item.title}}</h4>\r\n                <p class=\"weui_media_desc\">{{item.summary}}</p>\r\n                <ul class=\"weui_media_info\">\r\n                    <li class=\"weui_media_info_meta\"  style=\"line-height: 30px\">发布日期：{{item.date}}</li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </a>\r\n    {{/each}}\r\n\r\n</div>\r\n<span class=\"weui_panel_ft_bottom\">我是有底线的</span>\r\n</div>\r\n"
 
 /***/ },
 /* 8 */
@@ -3156,7 +3316,45 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"weui_media_hd\"><img class=\"weui_media_appmsg_thumb\" src=\"data:image/png;base64,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aWNrIDYuOC44LTEwIFExNiB4ODZfNjQgMjAxNS0wNy0xOSBodHRwOi8vd3d3LmltYWdlbWFnaWNrLm9yZwUMnDUAAABjdEVYdHN2Zzpjb21tZW50ACBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE4LjEuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgILu01mcAAAAYdEVYdFRodW1iOjpEb2N1bWVudDo6UGFnZXMAMaf/uy8AAAAYdEVYdFRodW1iOjpJbWFnZTo6SGVpZ2h0ADQ2OVbcdvkAAAAXdEVYdFRodW1iOjpJbWFnZTo6V2lkdGgANDgwInKzjgAAABl0RVh0VGh1bWI6Ok1pbWV0eXBlAGltYWdlL3BuZz+yVk4AAAAXdEVYdFRodW1iOjpNVGltZQAxNDQ4Mjg3NzIwTEqxDAAAABN0RVh0VGh1bWI6OlNpemUAMTAuNktCQrcGlWUAAABadEVYdFRodW1iOjpVUkkAZmlsZTovLy9ob21lL3d3d3Jvb3Qvd3d3LmVhc3lpY29uLm5ldC9jZG4taW1nLmVhc3lpY29uLmNuL3NyYy8xMTk2NS8xMTk2NTM3LnBuZ97UqSwAAAAASUVORK5CYII=\" alt=\"\"></div><div class=\"weui_media_bd\"><h5 class=\"weui_media_title\">12321</h5><p class=\"weui_media_desc\">123123</p></div>"
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	/**
+	 * Created by Admini on 2016/8/22.
+	 */
+	exports.default = [{
+	    id: 1,
+	    title: '微信Web App开发最佳实践',
+	    date: '2016-08-31',
+	    cover: 'https://mmrb.github.io/avatar/kl.jpg',
+	    summary: '组内小伙伴 jf 去 Feday 广州站的分享，有蛮多干货，都是微信 web app 开发者们关注的一些问题。 不做过多介绍，没有去现场听得朋友可以下载ppt来看。 感兴趣的朋友也可以下载广州站的所有ppt，以及关注接下来的 Feday 日程。'
+	}, {
+	    id: 2,
+	    title: 'X5即将升级内核到Blink',
+	    date: '2016-08-28',
+	    cover: 'https://mmrb.github.io/avatar/shenfei.jpg',
+	    summary: '我们从QQ浏览器团队得到消息，X5已经完成升级到Blink的开发工作，最近已经开始下发到客户端中，而X5内核的更新是热更新，也就是说不需要用户更新微信客户端，在良好的网络环境下(比如WiFi)会在后台静默更新。 根据我们拿到的版本，X5用的Blink版本是Chrome 37。虽然'
+	}, {
+	    id: 3,
+	    title: 'WeUI的设计稿开源',
+	    date: '2016-08-26',
+	    cover: 'https://mmrb.github.io/avatar/bear.jpg',
+	    summary: '自从 WeUI 开源后，已经收到 7000 多 star ，将近 2000 的 fork，我们在欣喜之余，也收到了蛮多有价值的意见与建议，其中之一就是将设计稿开源——好吧，其实设计稿叫『开放下载』更合适一些。 那我们今天开放了基于 WeUI 0.4 版本的设计稿 sketch 文'
+	}, {
+	    id: 4,
+	    title: 'HTML5+CSS3 loading 效果收集',
+	    date: '2016-08-25',
+	    cover: 'https://mmrb.github.io/avatar/gaby.jpg',
+	    summary: '用gif图片来做loading的时代已经过去了，它显得太low了，而用HTML5/CSS3以及SVG和canvas来做加载动画显得既炫酷又逼格十足。这已经成为一种趋势。 这里收集了几十个用html5和css3实现的loading效果，以供学习参考。 01. CSS Rainbow'
+	}, {
+	    id: 5,
+	    title: '微信网页开发者工具发布',
+	    date: '2016-08-24',
+	    cover: 'https://mmrb.github.io/avatar/xx.jpg',
+	    summary: '兄弟团队内测已久的微信网页开发者工具终于在今天的微信公开课Pro大会上发布了，喜大普奔。 这个工具有主要有3个功能： 使用真实用户身份，调试微信网页授权。 校验页面的 JSSDK 权限，以及模拟大部分 SDK 的输入和输出。 利用集成的 Chrome DevTools 和基本'
+	}];
 
 /***/ },
 /* 10 */
@@ -3168,7 +3366,7 @@
 	    value: true
 	});
 	
-	var _common = __webpack_require__(5);
+	var _common = __webpack_require__(6);
 	
 	var _common2 = _interopRequireDefault(_common);
 	
