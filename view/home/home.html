@@ -3,13 +3,17 @@
 <div id="panel_list_item">
     {{each list as item i}}
     <a href="#/list" class="weui_panel">
-        <div class="weui_panel_hd">文字列表附来源<i id="{{item.id}}" style="position: absolute;right: 10px;top: 0;padding: 10px" class="iconfont icon-down"></i></div>
+        <div class="weui_panel_hd">
+            <h4 class="weui_media_title">
+            {{item.title}}
+        </h4>
+            <i id="{{item.id}}" style="position: absolute;right: 10px;top: 0;padding: 10px" class="iconfont icon-down"></i></div>
         <div class="weui_panel_bd">
             <div class="weui_media_box weui_media_text">
-                <h4 class="weui_media_title">{{item.title}}</h4>
+
                 <p class="weui_media_desc">{{item.summary}}</p>
                 <ul class="weui_media_info">
-                    <li class="weui_media_info_meta"  style="line-height: 30px">发布日期：{{item.date}}</li>
+                    <li class="weui_media_info_meta">发布日期：{{item.date}}</li>
                 </ul>
             </div>
         </div>
