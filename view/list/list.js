@@ -16,6 +16,7 @@ export default {
        // common.preloader('img');//图片预加载
 
         console.log(this)
+        console.log(123123);
 
     }
 }
